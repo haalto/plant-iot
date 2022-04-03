@@ -1,7 +1,7 @@
 import { Knex } from "knex";
 import { config } from "./config";
 
-const { dbName, dbPassowrd, dbUser, dbHost } = config;
+const { databaseUrl } = config;
 
 //Database configuration for Knex
 const DB_CONFIG: Knex.Config = {
@@ -12,12 +12,7 @@ const DB_CONFIG: Knex.Config = {
     directory: "../seeds",
   },
   client: "pg",
-  connection: {
-    host: dbHost,
-    user: dbUser,
-    password: dbPassowrd,
-    database: dbName,
-  },
+  connection: databaseUrl,
 };
 
 export default DB_CONFIG;
