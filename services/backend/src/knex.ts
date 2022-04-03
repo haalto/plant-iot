@@ -13,7 +13,7 @@ const DB_CONFIG: Knex.Config = {
   },
   client: "pg",
   connection: {
-    connectString: databaseUrl,
+    connectionString: databaseUrl,
     ssl: true,
   },
 };
