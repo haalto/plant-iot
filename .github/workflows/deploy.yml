@@ -5,6 +5,15 @@ on:
     branches: [main]
 
 jobs:
+  db-migrations:
+    runs-on: ubuntu-latest
+     steps:
+      - uses: actions/checkout@v1
+      - name: Run migrations
+        run: |
+          cd services/backend
+          npm run migrations:latest
+
   heroku-deploy-backend:
     runs-on: ubuntu-latest
     steps:
@@ -17,4 +26,4 @@ jobs:
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
           appdir: services/backend
-          procfile: "web: npm run migrations:latest && npm run start:prod"
+          procfile: "web: npm run start:prod"
