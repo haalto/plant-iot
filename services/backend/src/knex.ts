@@ -12,7 +12,10 @@ const DB_CONFIG: Knex.Config = {
     directory: "../seeds",
   },
   client: "pg",
-  connection: databaseUrl,
+  connection: {
+    connectString: databaseUrl,
+    ssl: true,
+  },
 };
 
 export default DB_CONFIG;
