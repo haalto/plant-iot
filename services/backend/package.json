@@ -9,7 +9,6 @@
     "migrate:make": "npx knex --knexfile src/knex.ts migrate:make",
     "migrate:latest": "npx knex --knexfile src/knex.ts migrate:latest",
     "migrate:rollback": "npx knex --knexfile src/knex.ts migrate:rollback",
-    "api-knex": "npm install ts-node && TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' knex --knexfile src/knex.ts",
     "format": "prettier --write .",
     "lint": "eslint . --ext .ts",
     "lint-and-fix": "eslint . --ext .ts --fix",
@@ -43,6 +42,8 @@
     "lodash": "^4.17.21",
     "mqtt": "^4.3.7",
     "pg": "^8.7.1",
-    "snakecase-keys": "^5.1.2"
+    "snakecase-keys": "^5.1.2",
+    "typescript": "^4.5.2",
+    "ts-node": "^10.4.0"
   }
 }
