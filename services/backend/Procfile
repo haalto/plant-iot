@@ -1,2 +1,2 @@
-release: TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' knex --knexfile src/knex.ts migrate:latest
+release: knex --knexfile build/knex.js migrate:latest
 web: npm run start:prod
