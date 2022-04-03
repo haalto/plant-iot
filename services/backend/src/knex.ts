@@ -14,7 +14,9 @@ const DB_CONFIG: Knex.Config = {
   client: "pg",
   connection: {
     connectionString: databaseUrl,
-    ssl: true,
+    ssl: {
+      rejectUnauthorized: false,
+    },
   },
 };
 
