@@ -9,7 +9,7 @@
     "migrate:make": "npx knex --knexfile src/knex.ts migrate:make",
     "migrate:latest": "npx knex --knexfile src/knex.ts migrate:latest",
     "migrate:rollback": "npx knex --knexfile src/knex.ts migrate:rollback",
-    "api-knex": "npm install ts-node TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' knex --knexfile src/knex.ts",
+    "api-knex": "npm install ts-node && TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' knex --knexfile src/knex.ts",
     "format": "prettier --write .",
     "lint": "eslint . --ext .ts",
     "lint-and-fix": "eslint . --ext .ts --fix",
