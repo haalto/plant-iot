@@ -1,8 +1,7 @@
 import { connect, MqttClient } from "mqtt";
-import { config } from "src/config";
+import { config } from "../config";
 import { createMeasurement } from "../services/measurementServices";
 import { NewMeasurement } from "../types";
-import {} from "fastify";
 
 const { mqttConnectionUrl } = config;
 
