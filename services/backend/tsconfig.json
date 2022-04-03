@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "es2018",
+    "module": "commonjs",
+    "lib": ["es2018"],
+    "moduleResolution": "node",
+    "strictNullChecks": true,
+    "outDir": "./build",
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "typeRoots": ["./node_modules/@types", "./typings"]
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
+  "include": ["src", "src/declarations.d.ts"],
+  "exclude": ["node_modules"]
+}
