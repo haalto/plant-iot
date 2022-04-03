@@ -11,6 +11,7 @@
     "strictPropertyInitialization": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "skipLibCheck": true,
     "typeRoots": ["./node_modules/@types", "./typings"]
   },
   "ts-node": {
