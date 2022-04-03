@@ -1,2 +1,2 @@
-release: npm run migrate:latest
+release: npm run api-knex migrate:latest
 web: npm run start:prod
