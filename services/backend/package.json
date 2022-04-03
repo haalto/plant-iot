@@ -9,6 +9,7 @@
     "migrate:make": "npx knex --knexfile src/knex.ts migrate:make",
     "migrate:latest": "npx knex --knexfile src/knex.ts migrate:latest",
     "migrate:rollback": "npx knex --knexfile src/knex.ts migrate:rollback",
+    "migrate:release": "npx knex --knexfile build/knex.js migrate:latest",
     "format": "prettier --write .",
     "lint": "eslint . --ext .ts",
     "lint-and-fix": "eslint . --ext .ts --fix",

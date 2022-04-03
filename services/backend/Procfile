@@ -1,2 +1,2 @@
-release: npm run migrate:latest
+release: npm run migrate:deploy
 web: npm run start:prod
