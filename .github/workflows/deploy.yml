@@ -12,6 +12,7 @@ jobs:
       - name: Run migrations
         run: |
           cd services/backend
+          npm install
           npm run migrate:latest
 
   heroku-deploy-backend:
