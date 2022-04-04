@@ -36,7 +36,6 @@ const { port, host } = config;
   });
 
   client.on("message", async (topic, message, packet) => {
-    console.log(packet, packet.payload.toString());
     const logMessage = { msg: message.toString(), topic };
     console.log(JSON.stringify(logMessage));
     const measurement: NewMeasurement = await JSON.parse(message.toString());
