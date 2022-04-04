@@ -11,7 +11,7 @@ export const mqttClient = connect(mqttUrl, {
 });
 
 export const mqttHandler = (client: MqttClient, topic: string) => () => {
-  mqttClient.on("connect", () => {
+  client.on("connect", () => {
     console.log("MQTT client connected");
   });
 
@@ -19,7 +19,7 @@ export const mqttHandler = (client: MqttClient, topic: string) => () => {
     console.log(err);
   });
 
-  mqttClient.on("disconnect", () => {
+  client.on("disconnect", () => {
     console.log("MQTT client disconnected");
   });
 
@@ -30,20 +30,15 @@ export const mqttHandler = (client: MqttClient, topic: string) => () => {
     console.log(`Subscribed to ${topic}`);
   });
 
-  client.on("message", async (topic, message) => {
-    const logMessage = { msg: message.toString(), topic };
-    console.log(JSON.stringify(logMessage));
-  });
-
-  /*   client.on("message", async (topic, message) => {
+  client.on("message", (topic, message) => {
     console.log("foo iot");
     const logMessage = { msg: message.toString(), topic };
     console.log(JSON.stringify(logMessage));
-    const measurement: NewMeasurement = await JSON.parse(message.toString());
+    /*     const measurement: NewMeasurement = await JSON.parse(message.toString());
     try {
       await createMeasurement(measurement);
     } catch (e) {
       console.error(e);
-    }
-  }); */
+    } */
+  });
 };

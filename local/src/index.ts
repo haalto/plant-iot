@@ -23,7 +23,7 @@ const mqttClient = connect(mqttUrl, {
 
   mqttClient.subscribe("iot", { qos: 0 });
 
-  mqttClient.on("message", async (topic, message) => {
+  mqttClient.on("message", (topic, message) => {
     const logMessage = { msg: message.toString(), topic };
     console.log(JSON.stringify(logMessage));
   });
