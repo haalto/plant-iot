@@ -1,3 +1,4 @@
+import { uniqueId } from "lodash";
 import { connect } from "mqtt";
 import { app } from "./app";
 import { config } from "./config";
@@ -14,9 +15,12 @@ const { port, host } = config;
   const client = connect(mqttUrl, {
     username: mqttUser,
     password: mqttPassword,
-    clientId: "foo",
-    clean: false,
-    connectTimeout: 4000,
+    clientId: uniqueId(),
+    clean: true,
+    connectTimeout: 30000,
+    protocolId: "MQIsdp",
+    protocolVersion: 3,
+    keepalive: 60,
   });
 
   client.on("connect", () => {

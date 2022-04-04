@@ -6,6 +6,7 @@ const { mqttPassword, mqttUrl, mqttUser } = config;
 const mqttClient = connect(mqttUrl, {
   username: mqttUser,
   password: mqttPassword,
+  clientId: "local-publisher",
 });
 
 (() => {
