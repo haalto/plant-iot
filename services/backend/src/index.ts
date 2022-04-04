@@ -3,6 +3,8 @@ import { connect } from "mqtt";
 import { app } from "./app";
 import { config } from "./config";
 import { mqttClient, mqttHandler } from "./data-layer/mqtt";
+import { createMeasurement } from "./services/measurementServices";
+import { NewMeasurement } from "./types";
 
 const { port, host } = config;
 
@@ -24,7 +26,7 @@ const { port, host } = config;
   });
 
   client.on("connect", () => {
-    client.subscribe(topic, { qos: 2 }, (err, granted) => {
+    client.subscribe(topic, { qos: 0 }, (err, granted) => {
       if (err) {
         console.error(err);
       }
@@ -33,44 +35,20 @@ const { port, host } = config;
     });
   });
 
-  client.on("message", (topic, message, packet) => {
+  client.on("message", async (topic, message, packet) => {
     console.log(packet, packet.payload.toString());
     const logMessage = { msg: message.toString(), topic };
     console.log(JSON.stringify(logMessage));
-    /*     const measurement: NewMeasurement = await JSON.parse(message.toString());
+    const measurement: NewMeasurement = await JSON.parse(message.toString());
     try {
       await createMeasurement(measurement);
     } catch (e) {
       console.error(e);
-    } */
+    }
   });
 
   client.on("error", (err) => {
     console.log(err);
-  });
-
-  client.on("disconnect", () => {
-    console.log("MQTT client disconnected");
-  });
-
-  client.on("reconnect", () => {
-    console.log("Reconnecting...");
-  });
-
-  client.on("close", () => {
-    console.log("Closing...");
-  });
-
-  client.on("end", () => {
-    console.log("Ending...");
-  });
-
-  client.on("offline", () => {
-    console.log("Offline...");
-  });
-
-  client.on("packetreceive", () => {
-    console.log("");
   });
 
   //mqttHandler(mqttClient, "iot")();
