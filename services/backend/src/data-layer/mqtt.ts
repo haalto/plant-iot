@@ -23,7 +23,7 @@ export const mqttHandler = (client: MqttClient, topic: string) => () => {
     console.log("MQTT client disconnected");
   });
 
-  client.subscribe(topic, { qos: 0 }, (err) => {
+  client.subscribe(topic, { qos: 1 }, (err) => {
     if (err) {
       console.error(err);
     }
