@@ -1,24 +1,10 @@
-import { uniqueId } from "lodash";
-import { connect, MqttClient } from "mqtt";
-import { config } from "../config";
+import { MqttClient } from "mqtt";
 import { createMeasurement } from "../services/measurementServices";
 import { NewMeasurement } from "../types";
 
-const { mqttUrl, mqttUser, mqttPassword } = config;
-
-export const mqttClient = connect(mqttUrl, {
-  username: mqttUser,
-  password: mqttPassword,
-  clientId: uniqueId() + "-" + new Date().getTime(),
-  clean: true,
-  connectTimeout: 30000,
-  protocolId: "MQIsdp",
-  protocolVersion: 3,
-  keepalive: 60,
-});
-
 export const mqttHandler = (client: MqttClient, topic: string) => () => {
-  client.on("connect", () => {
+  client.on("connect", function (connack) {
+    console.log(connack);
     client.subscribe(topic, { qos: 0 }, (err) => {
       if (err) {
         console.error(err);
@@ -27,7 +13,7 @@ export const mqttHandler = (client: MqttClient, topic: string) => () => {
     });
   });
 
-  client.on("message", async (topic, message) => {
+  client.on("message", async function (topic, message) {
     const logMessage = { msg: message.toString(), topic };
     console.log(JSON.stringify(logMessage));
     const measurement: NewMeasurement = await JSON.parse(message.toString());
