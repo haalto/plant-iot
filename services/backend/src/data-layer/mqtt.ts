@@ -11,11 +11,24 @@ export const mqttClient = connect(mqttUrl, {
 });
 
 export const mqttHandler = (client: MqttClient, topic: string) => () => {
+  mqttClient.on("connect", () => {
+    console.log("MQTT client connected");
+  });
+
   client.on("error", (err) => {
     console.log(err);
   });
 
-  client.subscribe("iot", { qos: 0 });
+  mqttClient.on("disconnect", () => {
+    console.log("MQTT client disconnected");
+  });
+
+  client.subscribe(topic, { qos: 0 }, (err) => {
+    if (err) {
+      console.error(err);
+    }
+    console.log(`Subscribed to ${topic}`);
+  });
 
   client.on("message", async (topic, message) => {
     console.log("foo iot");
