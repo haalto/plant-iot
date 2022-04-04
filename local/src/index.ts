@@ -1,6 +1,33 @@
-import { connect, MqttClient } from "mqtt";
-const mqttClient = connect("mqtt://localhost:1883");
+import { connect } from "mqtt";
+import { config } from "./config";
+
+const { mqttPassword, mqttUrl, mqttUser } = config;
+
+const mqttClient = connect(mqttUrl, {
+  username: mqttUser,
+  password: mqttPassword,
+});
+
 (() => {
+  mqttClient.on("connect", () => {
+    console.log("MQTT client connected");
+  });
+
+  mqttClient.on("error", (err) => {
+    console.log("MQTT client error", err);
+  });
+
+  mqttClient.on("disconnect", () => {
+    console.log("MQTT client disconnected");
+  });
+
+  mqttClient.subscribe("iot", { qos: 0 });
+
+  mqttClient.on("message", async (topic, message) => {
+    const logMessage = { msg: message.toString(), topic };
+    console.log(JSON.stringify(logMessage));
+  });
+
   console.log("Start sending messages");
   setInterval(() => {
     const message = {
@@ -12,5 +39,5 @@ const mqttClient = connect("mqtt://localhost:1883");
     };
 
     mqttClient.publish("iot", JSON.stringify(message));
-  }, 3000);
+  }, 1000);
 })();
