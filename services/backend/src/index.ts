@@ -7,10 +7,12 @@ import { mqttHandler } from "./data-layer/mqtt";
 const { port, host, mqttPassword, mqttUrl, mqttUser } = config;
 
 (async () => {
+  const clientId = uniqueId() + "-" + new Date().getTime();
+  console.log(clientId);
   const client = connect(mqttUrl, {
     username: mqttUser,
     password: mqttPassword,
-    clientId: uniqueId() + "-" + new Date().getTime(),
+    clientId,
     clean: true,
     connectTimeout: 30000,
     protocolId: "MQIsdp",
