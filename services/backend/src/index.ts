@@ -15,11 +15,11 @@ const { port, host } = config;
     username: mqttUser,
     password: mqttPassword,
     clientId: "foo",
-    clean: true,
+    clean: false,
   });
 
   client.on("connect", () => {
-    client.subscribe(topic, { qos: 1 }, (err, granted) => {
+    client.subscribe(topic, { qos: 0 }, (err, granted) => {
       if (err) {
         console.error(err);
       }
@@ -50,6 +50,22 @@ const { port, host } = config;
 
   client.on("reconnect", () => {
     console.log("Reconnecting...");
+  });
+
+  client.on("close", () => {
+    console.log("Closing...");
+  });
+
+  client.on("end", () => {
+    console.log("Ending...");
+  });
+
+  client.on("offline", () => {
+    console.log("Offline...");
+  });
+
+  client.on("packetreceive", () => {
+    console.log("");
   });
 
   //mqttHandler(mqttClient, "iot")();
