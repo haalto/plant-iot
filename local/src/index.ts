@@ -46,7 +46,7 @@ const mqttClient = connect(mqttUrl, {
     };
 
     mqttClient.publish("iot", JSON.stringify(message), {
-      qos: 0,
+      qos: 1,
       retain: true,
     });
   }, 50);

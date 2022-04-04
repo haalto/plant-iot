@@ -10,7 +10,7 @@ export const mqttClient = connect(mqttUrl, {
   username: mqttUser,
   password: mqttPassword,
   clientId: uniqueId(),
-  clean: true,
+  clean: false,
   connectTimeout: 30000,
   protocolId: "MQIsdp",
   protocolVersion: 3,
@@ -19,14 +19,14 @@ export const mqttClient = connect(mqttUrl, {
 
 export const mqttHandler = (client: MqttClient, topic: string) => () => {
   client.on("connect", () => {
-    client.subscribe(topic, { qos: 1 }, (err, granted) => {
+    client.subscribe(topic, { qos: 1 }, (err) => {
       if (err) {
         console.error(err);
       }
     });
   });
 
-  client.on("message", async (topic, message, packet) => {
+  client.on("message", async (topic, message) => {
     const logMessage = { msg: message.toString(), topic };
     console.log(JSON.stringify(logMessage));
     const measurement: NewMeasurement = await JSON.parse(message.toString());
