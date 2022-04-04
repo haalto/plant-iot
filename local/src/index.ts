@@ -8,11 +8,9 @@ const mqttClient = connect(mqttUrl, {
   username: mqttUser,
   password: mqttPassword,
   clientId: v1(),
-  clean: false,
-  connectTimeout: 30000,
+  clean: true,
   protocolId: "MQIsdp",
   protocolVersion: 3,
-  keepalive: 60,
 });
 
 (() => {
@@ -25,18 +23,18 @@ const mqttClient = connect(mqttUrl, {
   });
 
   console.log("Start sending messages");
-  setInterval(() => {
-    const message = {
-      deviceId: "69ced31c-35fb-4b23-afdc-5caf1a00cf81",
-      soilMoisture: Math.random() * 100,
-      temperature: Math.random() * 100,
-      humidity: Math.random() * 100,
-      measurementTime: new Date().toISOString(),
-    };
 
-    mqttClient.publish("iot", JSON.stringify(message), {
-      qos: 0,
-      retain: false,
-    });
-  }, 1000);
+  const message = {
+    deviceId: "69ced31c-35fb-4b23-afdc-5caf1a00cf81",
+    soilMoisture: Math.random() * 100,
+    temperature: Math.random() * 100,
+    humidity: Math.random() * 100,
+    measurementTime: new Date().toISOString(),
+  };
+
+  mqttClient.publish("iot", JSON.stringify(message), {
+    qos: 1,
+    retain: true,
+  });
+  mqttClient.end();
 })();
