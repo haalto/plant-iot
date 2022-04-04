@@ -10,7 +10,7 @@ export const mqttClient = connect(mqttUrl, {
   username: mqttUser,
   password: mqttPassword,
   clientId: uniqueId(),
-  clean: true,
+  clean: false,
   connectTimeout: 30000,
   protocolId: "MQIsdp",
   protocolVersion: 3,
@@ -19,7 +19,7 @@ export const mqttClient = connect(mqttUrl, {
 
 export const mqttHandler = (client: MqttClient, topic: string) => () => {
   client.on("connect", () => {
-    client.subscribe(topic, { qos: 1 }, (err) => {
+    client.subscribe(topic, { qos: 0 }, (err) => {
       if (err) {
         console.error(err);
       }
