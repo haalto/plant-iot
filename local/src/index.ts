@@ -1,12 +1,18 @@
 import { connect } from "mqtt";
 import { config } from "./config";
+import { v1 } from "uuid";
 
 const { mqttPassword, mqttUrl, mqttUser } = config;
 
 const mqttClient = connect(mqttUrl, {
   username: mqttUser,
   password: mqttPassword,
-  clientId: "local-publisher",
+  clientId: v1(),
+  clean: true,
+  connectTimeout: 30000,
+  protocolId: "MQIsdp",
+  protocolVersion: 3,
+  keepalive: 60,
 });
 
 (() => {
@@ -22,12 +28,12 @@ const mqttClient = connect(mqttUrl, {
     console.log("MQTT client disconnected");
   });
 
-  mqttClient.subscribe("iot", { qos: 1 });
+  /*   mqttClient.subscribe("iot", { qos: 1 });
 
   mqttClient.on("message", (topic, message) => {
     const logMessage = { msg: message.toString(), topic };
     console.log(JSON.stringify(logMessage));
-  });
+  }); */
 
   console.log("Start sending messages");
   setInterval(() => {
@@ -40,8 +46,8 @@ const mqttClient = connect(mqttUrl, {
     };
 
     mqttClient.publish("iot", JSON.stringify(message), {
-      qos: 2,
+      qos: 0,
       retain: true,
     });
-  }, 3000);
+  }, 50);
 })();

@@ -11,6 +11,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^17.0.23",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.8.1",
     "eslint": "^8.6.0",
@@ -23,6 +24,7 @@
   },
   "dependencies": {
     "dotenv": "^16.0.0",
-    "mqtt": "^4.3.7"
+    "mqtt": "^4.3.7",
+    "uuid": "^8.3.2"
   }
 }
