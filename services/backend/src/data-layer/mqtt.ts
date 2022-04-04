@@ -31,6 +31,11 @@ export const mqttHandler = (client: MqttClient, topic: string) => () => {
   });
 
   client.on("message", async (topic, message) => {
+    const logMessage = { msg: message.toString(), topic };
+    console.log(JSON.stringify(logMessage));
+  });
+
+  /*   client.on("message", async (topic, message) => {
     console.log("foo iot");
     const logMessage = { msg: message.toString(), topic };
     console.log(JSON.stringify(logMessage));
@@ -40,5 +45,5 @@ export const mqttHandler = (client: MqttClient, topic: string) => () => {
     } catch (e) {
       console.error(e);
     }
-  });
+  }); */
 };
