@@ -11,20 +11,17 @@ export const mqttClient = connect(mqttUrl, {
 });
 
 export const mqttHandler = (client: MqttClient, topic: string) => () => {
-  client.on("connect", () => {
-    console.log("MQTT client connected");
+  client.on("error", (err) => {
+    console.log(err);
   });
 
-  client.on("error", () => {
-    console.log("MQTT client error");
-  });
-
-  client.subscribe(topic, { qos: 0 });
+  client.subscribe("iot", { qos: 0 });
 
   client.on("message", async (topic, message) => {
+    console.log("foo iot");
     const logMessage = { msg: message.toString(), topic };
     console.log(JSON.stringify(logMessage));
-    const measurement: NewMeasurement = JSON.parse(message.toString());
+    const measurement: NewMeasurement = await JSON.parse(message.toString());
     try {
       await createMeasurement(measurement);
     } catch (e) {
