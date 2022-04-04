@@ -1,7 +1,7 @@
 import { MqttClient } from "mqtt";
 import mqtt = require("mqtt");
-import { createMeasurement } from "src/services/measurementServices";
-import { NewMeasurement } from "src/types";
+import { createMeasurement } from "../services/measurementServices";
+import { NewMeasurement } from "../types";
 
 export class MqttHandler {
   mqttClient: MqttClient | null;
