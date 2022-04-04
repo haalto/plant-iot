@@ -7,5 +7,7 @@ export const config = {
   databaseUrl:
     process.env.DATABASE_URL ||
     "postgres://postgres:postgres@localhost:5432/postgres",
-  mqttConnectionUrl: process.env.MQTT_HOST || "mqtt://localhost:1883",
+  mqttUrl: process.env.MQTT_URL || "mqtt://localhost:1883",
+  mqttUser: process.env.MQTT_USER || "admin",
+  mqttPassword: process.env.MQTT_PASSWORD || "admin",
 };

@@ -3,9 +3,12 @@ import { config } from "../config";
 import { createMeasurement } from "../services/measurementServices";
 import { NewMeasurement } from "../types";
 
-const { mqttConnectionUrl } = config;
+const { mqttUrl, mqttUser, mqttPassword } = config;
 
-export const mqttClient = connect(mqttConnectionUrl);
+export const mqttClient = connect(mqttUrl, {
+  username: mqttUser,
+  password: mqttPassword,
+});
 
 export const mqttHandler = (client: MqttClient, topic: string) => () => {
   client.on("connect", () => {
