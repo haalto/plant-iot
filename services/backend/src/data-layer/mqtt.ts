@@ -9,8 +9,8 @@ const { mqttUrl, mqttUser, mqttPassword } = config;
 export const mqttClient = connect(mqttUrl, {
   username: mqttUser,
   password: mqttPassword,
-  clientId: uniqueId(),
-  clean: false,
+  clientId: uniqueId() + "-" + new Date().getTime(),
+  clean: true,
   connectTimeout: 30000,
   protocolId: "MQIsdp",
   protocolVersion: 3,

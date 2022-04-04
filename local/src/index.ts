@@ -8,11 +8,11 @@ const mqttClient = connect(mqttUrl, {
   username: mqttUser,
   password: mqttPassword,
   clientId: v1(),
-  clean: false,
+  clean: true,
   connectTimeout: 30000,
   protocolId: "MQIsdp",
   protocolVersion: 3,
-  keepalive: 60,
+  keepalive: 1,
 });
 
 (() => {
