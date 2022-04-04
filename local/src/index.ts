@@ -35,6 +35,9 @@ const mqttClient = connect(mqttUrl, {
   mqttClient.publish("iot", JSON.stringify(message), {
     qos: 1,
     retain: true,
+    properties: {
+      messageExpiryInterval: 1000,
+    },
   });
   mqttClient.end();
 })();

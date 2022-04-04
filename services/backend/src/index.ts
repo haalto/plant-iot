@@ -15,6 +15,9 @@ const { port, host, mqttPassword, mqttUrl, mqttUser } = config;
     clientId,
     protocolId: "MQIsdp",
     protocolVersion: 3,
+    reconnectPeriod: 5000,
+    keepalive: 60,
+    resubscribe: true,
   });
 
   mqttHandler(client, "iot")();
