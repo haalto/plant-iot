@@ -27,4 +27,36 @@ export const mqttHandler = (client: MqttClient, topic: string) => () => {
   client.on("error", (err) => {
     console.log(err);
   });
+
+  client.on("offline", () => {
+    console.log("MQTT client offline");
+  });
+
+  client.on("close", () => {
+    console.log("MQTT client closed");
+  });
+
+  client.on("reconnect", () => {
+    console.log("MQTT client reconnected");
+  });
+
+  client.on("end", () => {
+    console.log("MQTT client ended");
+  });
+
+  client.on("disconnect", () => {
+    console.log("MQTT client disconnected");
+  });
+
+  client.on("packetsend", (packet) => {
+    console.log("MQTT client packet send", packet);
+  });
+
+  client.on("packetreceive", (packet) => {
+    console.log("MQTT client packet receive", packet);
+  });
+
+  client.on("pingresp", () => {
+    console.log("MQTT client pingresp");
+  });
 };
