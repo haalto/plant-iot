@@ -12,7 +12,24 @@ export const mqttClient = connect(mqttUrl, {
 
 export const mqttHandler = (client: MqttClient, topic: string) => () => {
   client.on("connect", () => {
-    console.log("MQTT client connected");
+    client.subscribe(topic, { qos: 1 }, (err) => {
+      if (err) {
+        console.error(err);
+      }
+      console.log(`Subscribed to ${topic}`);
+    });
+
+    client.on("message", (topic, message) => {
+      console.log("foo iot");
+      const logMessage = { msg: message.toString(), topic };
+      console.log(JSON.stringify(logMessage));
+      /*     const measurement: NewMeasurement = await JSON.parse(message.toString());
+      try {
+        await createMeasurement(measurement);
+      } catch (e) {
+        console.error(e);
+      } */
+    });
   });
 
   client.on("error", (err) => {
@@ -21,24 +38,5 @@ export const mqttHandler = (client: MqttClient, topic: string) => () => {
 
   client.on("disconnect", () => {
     console.log("MQTT client disconnected");
-  });
-
-  client.subscribe(topic, { qos: 1 }, (err) => {
-    if (err) {
-      console.error(err);
-    }
-    console.log(`Subscribed to ${topic}`);
-  });
-
-  client.on("message", (topic, message) => {
-    console.log("foo iot");
-    const logMessage = { msg: message.toString(), topic };
-    console.log(JSON.stringify(logMessage));
-    /*     const measurement: NewMeasurement = await JSON.parse(message.toString());
-    try {
-      await createMeasurement(measurement);
-    } catch (e) {
-      console.error(e);
-    } */
   });
 };

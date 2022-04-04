@@ -21,7 +21,7 @@ const mqttClient = connect(mqttUrl, {
     console.log("MQTT client disconnected");
   });
 
-  mqttClient.subscribe("iot", { qos: 0 });
+  /*  mqttClient.subscribe("iot", { qos: 0 }); */
 
   mqttClient.on("message", (topic, message) => {
     const logMessage = { msg: message.toString(), topic };
