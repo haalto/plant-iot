@@ -38,6 +38,9 @@ const mqttClient = connect(mqttUrl, {
       measurementTime: new Date().toISOString(),
     };
 
-    mqttClient.publish("iot", JSON.stringify(message));
-  }, 1000);
+    mqttClient.publish("iot", JSON.stringify(message), {
+      qos: 2,
+      retain: true,
+    });
+  }, 3000);
 })();

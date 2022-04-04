@@ -16,10 +16,11 @@ const { port, host } = config;
     password: mqttPassword,
     clientId: "foo",
     clean: false,
+    connectTimeout: 4000,
   });
 
   client.on("connect", () => {
-    client.subscribe(topic, { qos: 0 }, (err, granted) => {
+    client.subscribe(topic, { qos: 2 }, (err, granted) => {
       if (err) {
         console.error(err);
       }
