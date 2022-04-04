@@ -3,8 +3,7 @@ import { createMeasurement } from "../services/measurementServices";
 import { NewMeasurement } from "../types";
 
 export const mqttHandler = (client: MqttClient, topic: string) => () => {
-  client.on("connect", function (connack) {
-    console.log(connack);
+  client.on("connect", function () {
     client.subscribe(topic, { qos: 1 }, (err) => {
       if (err) {
         console.error(err);

@@ -11,7 +11,7 @@ const { port, host, mqttPassword, mqttUrl, mqttUser } = config;
   const client = connect(mqttUrl, {
     username: mqttUser,
     password: mqttPassword,
-    clean: false,
+    clean: true,
     clientId,
     protocolId: "MQIsdp",
     protocolVersion: 3,
