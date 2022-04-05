@@ -1,4 +1,4 @@
-import { FastifyReply, FastifyRequest } from "fastify";
+import { FastifyReply, FastifyRequest, FastifyInstance } from "fastify";
 import { getAllMeasurements } from "../../services/measurementServices";
 
 export const getMeasurements = async (

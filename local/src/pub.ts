@@ -1,9 +1,8 @@
 import { connect } from "mqtt";
 import { config } from "./config";
-import { v1 } from "uuid";
 
 const { mqttPassword, mqttUrl, mqttUser } = config;
-const topic = "iot-test";
+const topic = "iot";
 const mqttClient = connect(mqttUrl, {
   username: mqttUser,
   password: mqttPassword,
@@ -37,5 +36,5 @@ const mqttClient = connect(mqttUrl, {
       qos: 0,
       retain: false,
     });
-  }, 3000);
+  }, 100);
 })();
