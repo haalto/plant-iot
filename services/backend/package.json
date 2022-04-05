@@ -11,7 +11,9 @@
     "migrate:rollback": "npx knex --knexfile src/knex.ts migrate:rollback",
     "format": "prettier --write .",
     "lint": "eslint . --ext .ts",
-    "lint-and-fix": "eslint . --ext .ts --fix"
+    "lint-and-fix": "eslint . --ext .ts --fix",
+    "build": "tsc",
+    "start:prod": "node build/index.js"
   },
   "author": "",
   "license": "ISC",

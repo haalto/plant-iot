@@ -1,10 +1,26 @@
+import { uniqueId } from "lodash";
+import { connect } from "mqtt";
 import { app } from "./app";
 import { config } from "./config";
-import { mqttClient, mqttHandler } from "./data-layer/mqtt";
+import { mqttHandler } from "./data-layer/mqtt";
 
-const { port, host } = config;
+const { port, host, mqttPassword, mqttUrl, mqttUser } = config;
 
 (async () => {
+  const clientId = uniqueId() + "-" + new Date().getTime();
+  const client = connect(mqttUrl, {
+    username: mqttUser,
+    password: mqttPassword,
+    clean: true,
+    clientId,
+    protocolId: "MQIsdp",
+    protocolVersion: 3,
+    reconnectPeriod: 5000,
+    keepalive: 60,
+    resubscribe: true,
+  });
+
+  mqttHandler(client, "iot")();
   const server = await app({ logger: true });
   server.listen(port, host, (err) => {
     if (err) {
@@ -12,6 +28,4 @@ const { port, host } = config;
       process.exit(1);
     }
   });
-
-  mqttHandler(mqttClient, "iot")();
 })();
