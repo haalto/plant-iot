@@ -5,6 +5,9 @@
 // - DHT Sensor Library: https://github.com/adafruit/DHT-sensor-library
 // - Adafruit Unified Sensor Lib: https://github.com/adafruit/Adafruit_Sensor
 int moisture_sensorvalue;
+int soil_moisture_percentage;
+int minimum_soil_moisture = 0;
+int maximum_soil_moisture = 760;
 
 #define MOISTURE_SENSOR_IN 1
 
@@ -49,34 +52,30 @@ void loop() {
   float h = dht.readHumidity();
   // Read temperature as Celsius (the default)
   float t = dht.readTemperature();
-  // Read temperature as Fahrenheit (isFahrenheit = true)
-  float f = dht.readTemperature(true);
 
   // Check if any reads failed and exit early (to try again).
-  if (isnan(h) || isnan(t) || isnan(f)) {
+  if (isnan(h) || isnan(t)) {
     Serial.println(F("Failed to read from DHT sensor!"));
     return;
   }
 
-  // Compute heat index in Fahrenheit (the default)
-  float hif = dht.computeHeatIndex(f, h);
   // Compute heat index in Celsius (isFahreheit = false)
   float hic = dht.computeHeatIndex(t, h, false);
+
+  // Compute soil moisture percentage from analog input
+  moisture_sensorvalue = analogRead(MOISTURE_SENSOR_IN);
+  soil_moisture_percentage = map(moisture_sensorvalue, minimum_soil_moisture, maximum_soil_moisture, 0, 100);
+  
 
   Serial.print(F("Humidity: "));
   Serial.print(h);
   Serial.print(F("%  Temperature: "));
   Serial.print(t);
   Serial.print(F("°C "));
-  Serial.print(f);
-  Serial.print(F("°F  Heat index: "));
+  Serial.print(F("Heat index: "));
   Serial.print(hic);
-  Serial.print(F("°C "));
-  Serial.print(hif);
-  Serial.println(F("°F"));
-
-  moisture_sensorvalue = analogRead(MOISTURE_SENSOR_IN);
-
-  Serial.println(moisture_sensorvalue);
+  Serial.print(F("°C Soil moisture percentage: "));
+  Serial.print(soil_moisture_percentage);
+  Serial.println("%");
   
 }
