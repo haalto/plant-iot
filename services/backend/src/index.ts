@@ -19,9 +19,9 @@ const { port, host, mqttPassword, mqttUrl, mqttUser } = config;
     keepalive: 60,
     resubscribe: true,
   });
-
-  mqttHandler(client, "iot")();
   const server = await app({ logger: true });
+  mqttHandler(client, "iot", server.io)();
+
   server.listen(port, host, (err) => {
     if (err) {
       console.error(err);

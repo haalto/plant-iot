@@ -1,4 +1,4 @@
-import { FastifyInstance } from "fastify";
+import { FastifyInstance, RouteHandlerMethod } from "fastify";
 import { getMeasurements } from "../controllers/measurementControllers";
 import { GetMeasurementsResponseSchema } from "../schemas/measurement";
 
