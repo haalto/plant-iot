@@ -36,5 +36,5 @@ const mqttClient = connect(mqttUrl, {
       qos: 0,
       retain: false,
     });
-  }, 100);
+  }, 1000);
 })();

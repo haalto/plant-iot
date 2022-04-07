@@ -36,6 +36,7 @@
     "camelcase-keys": "^7.0.2",
     "dotenv": "^10.0.0",
     "fastify": "^3.25.2",
+    "fastify-cors": "^6.0.3",
     "fastify-plugin": "^3.0.0",
     "fastify-sensible": "^3.1.2",
     "fastify-socket.io": "^3.0.0",
