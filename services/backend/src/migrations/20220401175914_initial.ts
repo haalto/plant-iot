@@ -4,7 +4,7 @@ export async function up(knex: Knex): Promise<void> {
   await knex.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
 
   await knex.schema.createTable("device", (table) => {
-    table.uuid("id").primary().defaultTo(knex.raw("uuid_generate_v4()"));
+    table.uuid("id").primary();
   });
 
   await knex.schema.createTable("measurement", (table) => {
