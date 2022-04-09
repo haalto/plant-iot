@@ -20,6 +20,10 @@ type Measurement = {
   soilMoisture: number;
 };
 
+type Data = {
+  [key: string]: Measurement[];
+};
+
 const KPI = (props: { title: string; value: number }) => {
   const { title, value } = props;
   return (
@@ -29,29 +33,9 @@ const KPI = (props: { title: string; value: number }) => {
     </div>
   );
 };
-function App() {
-  const [data, setData] = useState<Measurement[]>([]);
 
-  const { current: socket } = useRef(
-    io(`${config.SERVER_URL}`, {
-      autoConnect: false,
-    })
-  );
-
-  useEffect(() => {
-    socket.open();
-
-    socket.on("measurement", (measurement: Measurement) => {
-      setData((prevData) => [...prevData.slice(-50), measurement]);
-    });
-
-    socket.on("error", (error: any) => {
-      console.log(error);
-    });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+const DeviceData = (props: { data: Measurement[] }) => {
+  const { data } = props;
   return (
     <div>
       <div className="flex row-auto">
@@ -83,7 +67,47 @@ function App() {
           dot={false}
         />
       </LineChart>
-      {data.length}
+    </div>
+  );
+};
+
+function App() {
+  const [data, setData] = useState<Data>({ devices: [] });
+
+  const { current: socket } = useRef(
+    io(`${config.SERVER_URL}`, {
+      autoConnect: false,
+    })
+  );
+
+  useEffect(() => {
+    socket.open();
+
+    socket.on("measurement", (measurement: Measurement) => {
+      const deviceId = measurement.deviceId;
+      setData((data) => {
+        const newData = { ...data };
+        if (!newData[deviceId]) {
+          newData[deviceId] = [];
+        }
+        newData[deviceId] = [...newData[deviceId].slice(-20), measurement];
+        return newData;
+      });
+    });
+
+    socket.on("error", (error: any) => {
+      console.log(error);
+    });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <div>
+      <h1>Plant IoT Dashboard</h1>
+      {Object.keys(data).map((deviceId) => (
+        <DeviceData key={deviceId} data={data[deviceId]}></DeviceData>
+      ))}
     </div>
   );
 }
