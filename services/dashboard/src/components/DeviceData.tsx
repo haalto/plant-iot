@@ -33,7 +33,12 @@ export const DeviceData = (props: { data: Measurement[] }) => {
         ></KPI>
       </div>
       <ResponsiveContainer width={"99%"} height={400}>
-        <LineChart width={700} height={300} data={data}>
+        <LineChart
+          width={700}
+          height={300}
+          data={data}
+          margin={{ top: 0, left: -15, right: 0, bottom: 0 }}
+        >
           <XAxis dataKey="measurementTime" />
           <YAxis />
           <CartesianGrid stroke="#eee" strokeDasharray="5 5" />

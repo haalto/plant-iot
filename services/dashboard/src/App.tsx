@@ -53,7 +53,7 @@ function App() {
       <h1 className="text-2xl text-bold text-gray-700 p-6">
         Plant IoT Dashboard
       </h1>
-      <div className="flex flex-col justify-center justify-items-center">
+      <div className="flex lg:flex-col  sm:justify-center md:justify-items-center md:just-items-left">
         {renderData()}
       </div>
     </div>
