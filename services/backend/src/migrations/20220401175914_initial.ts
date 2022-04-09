@@ -9,7 +9,7 @@ export async function up(knex: Knex): Promise<void> {
 
   await knex.schema.createTable("measurement", (table) => {
     table.uuid("id").primary().defaultTo(knex.raw("uuid_generate_v4()"));
-    table.uuid("device_id").notNullable().references("id").inTable("device");
+    table.text("device_id").notNullable().references("id").inTable("device");
     table.timestamp("measurement_time").notNullable();
     table.double("temperature").notNullable();
     table.double("humidity").notNullable();
