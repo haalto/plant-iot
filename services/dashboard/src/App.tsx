@@ -58,18 +58,25 @@ const DeviceData = (props: { data: Measurement[] }) => {
           <XAxis dataKey="measurementTime" />
           <YAxis />
           <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-          <Line dataKey="humidity" stroke="#8884d8" dot={false} />
+          <Line
+            dataKey="humidity"
+            stroke="#8884d8"
+            dot={false}
+            isAnimationActive={false}
+          />
           <Line
             type="monotone"
             dataKey="temperature"
             stroke="#82ca9d"
             dot={false}
+            isAnimationActive={false}
           />
           <Line
             type="monotone"
             dataKey="soilMoisture"
             stroke="#ca82a6"
             dot={false}
+            isAnimationActive={false}
           />
         </LineChart>
       </div>
@@ -79,7 +86,7 @@ const DeviceData = (props: { data: Measurement[] }) => {
 
 function App() {
   const [data, setData] = useState<Data>({ devices: [] });
-
+  console.log(data);
   const { current: socket } = useRef(
     io(`${config.SERVER_URL}`, {
       autoConnect: false,
