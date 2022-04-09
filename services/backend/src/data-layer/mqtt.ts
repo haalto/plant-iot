@@ -19,11 +19,14 @@ export const mqttHandler =
       console.log(JSON.stringify(logMessage));
 
       const measurement: RawMeasurement = await JSON.parse(message.toString());
+
+      const datetime = new Date(
+        measurement.measurementTime * 1000
+      ).toISOString();
+
       const newMeasurement = {
         ...measurement,
-        measurementTime: new Date(
-          measurement.measurementTime * 1000
-        ).toLocaleDateString(),
+        measurementTime: datetime,
       };
 
       socket.emit("measurement", newMeasurement);

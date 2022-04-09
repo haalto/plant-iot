@@ -85,7 +85,7 @@ const DeviceData = (props: { data: Measurement[] }) => {
 };
 
 function App() {
-  const [data, setData] = useState<Data>({ devices: [] });
+  const [data, setData] = useState<Data>({});
   console.log(data);
   const { current: socket } = useRef(
     io(`${config.SERVER_URL}`, {
