@@ -20,7 +20,13 @@ module.exports = {
       sm: { max: "639px" },
       // => @media (max-width: 639px) { ... }
     },
-    extend: {},
+    extend: {
+      colors: {
+        soil: "#cfa15c",
+        humidity: "#849dd8",
+        temperature: "#bf3d4c",
+      },
+    },
   },
   plugins: [],
 };

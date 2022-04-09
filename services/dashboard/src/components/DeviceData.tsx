@@ -39,17 +39,17 @@ export const DeviceData = (props: { data: Measurement[] }) => {
           width={700}
           height={300}
           data={data}
-          margin={{ top: 0, left: -15, right: 0, bottom: 0 }}
+          margin={{ top: 25, left: -25, right: 0, bottom: 20 }}
         >
           <XAxis dataKey="measurementTime" />
           <YAxis />
           <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-          <Legend verticalAlign="top" height={36} />
+          <Legend height={60} iconSize={15} align="center" layout="vertical" />
 
           <Line
             name="Humidity"
             dataKey="humidity"
-            stroke="#8884d8"
+            stroke="#849dd8"
             dot={false}
             isAnimationActive={false}
           />
@@ -57,7 +57,7 @@ export const DeviceData = (props: { data: Measurement[] }) => {
             name="Temperature"
             type="monotone"
             dataKey="temperature"
-            stroke="#82ca9d"
+            stroke="#bf3d4c"
             dot={false}
             isAnimationActive={false}
           />
@@ -65,7 +65,7 @@ export const DeviceData = (props: { data: Measurement[] }) => {
             name="Soil moisture"
             type="monotone"
             dataKey="soilMoisture"
-            stroke="#ca82a6"
+            stroke="#cfa15c"
             dot={false}
             isAnimationActive={false}
           />
