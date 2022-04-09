@@ -17,7 +17,7 @@ export const mqttHandler =
     client.on("message", async function (topic, message) {
       const logMessage = { msg: message.toString(), topic };
       console.log(JSON.stringify(logMessage));
-      socket.emit("measurement", JSON.parse(message.toString()));
+
       const measurement: RawMeasurement = await JSON.parse(message.toString());
       const newMeasurement = {
         ...measurement,
@@ -25,6 +25,9 @@ export const mqttHandler =
           measurement.measurementTime * 1000
         ).toLocaleDateString(),
       };
+
+      socket.emit("measurement", newMeasurement);
+
       try {
         await createMeasurement(newMeasurement);
       } catch (e) {
