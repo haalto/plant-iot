@@ -9,10 +9,18 @@ export const app = (opts?: FastifyServerOptions) => {
   const server = Fastify(opts);
 
   //Plugins
-  server.register(fastifyCors, cors);
+  server.register(fastifyCors, {
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: "*",
+  });
   server.register(fastifySensible);
   server.register(fastifySocketIO, {
-    cors,
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST", "DELETE", "OPTIONS"],
+      allowedHeaders: "*",
+    },
   });
 
   //Routes

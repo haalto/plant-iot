@@ -37,37 +37,43 @@ const KPI = (props: { title: string; value: number }) => {
 const DeviceData = (props: { data: Measurement[] }) => {
   const { data } = props;
   return (
-    <div>
-      <div className="flex row-auto">
-        <KPI title={"Humidity"} value={data.slice(-1)[0]?.humidity ?? 0}></KPI>
-        <KPI
-          title={"Soil moisture"}
-          value={data.slice(-1)[0]?.soilMoisture ?? 0}
-        ></KPI>
-        <KPI
-          title={"Temperature"}
-          value={data.slice(-1)[0]?.temperature ?? 0}
-        ></KPI>
+    <>
+      <h2>{data[0]?.deviceId}</h2>
+      <div>
+        <div className="flex row-auto">
+          <KPI
+            title={"Humidity"}
+            value={data.slice(-1)[0]?.humidity ?? 0}
+          ></KPI>
+          <KPI
+            title={"Soil moisture"}
+            value={data.slice(-1)[0]?.soilMoisture ?? 0}
+          ></KPI>
+          <KPI
+            title={"Temperature"}
+            value={data.slice(-1)[0]?.temperature ?? 0}
+          ></KPI>
+        </div>
+        <LineChart width={700} height={300} data={data}>
+          <XAxis dataKey="measurementTime" />
+          <YAxis />
+          <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+          <Line dataKey="humidity" stroke="#8884d8" dot={false} />
+          <Line
+            type="monotone"
+            dataKey="temperature"
+            stroke="#82ca9d"
+            dot={false}
+          />
+          <Line
+            type="monotone"
+            dataKey="soilMoisture"
+            stroke="#ca82a6"
+            dot={false}
+          />
+        </LineChart>
       </div>
-      <LineChart width={700} height={300} data={data}>
-        <XAxis dataKey="measurementTime" />
-        <YAxis />
-        <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-        <Line dataKey="humidity" stroke="#8884d8" dot={false} />
-        <Line
-          type="monotone"
-          dataKey="temperature"
-          stroke="#82ca9d"
-          dot={false}
-        />
-        <Line
-          type="monotone"
-          dataKey="soilMoisture"
-          stroke="#ca82a6"
-          dot={false}
-        />
-      </LineChart>
-    </div>
+    </>
   );
 };
 
