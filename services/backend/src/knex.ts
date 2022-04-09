@@ -14,12 +14,9 @@ const DB_CONFIG: Knex.Config = {
   client: "pg",
   connection: {
     connectionString: databaseUrl,
-    ssl:
-      process.env.NODE_ENV === "production"
-        ? {
-            rejectUnauthorized: false,
-          }
-        : false,
+    ssl: {
+      rejectUnauthorized: false,
+    },
   },
 };
 
