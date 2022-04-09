@@ -1,3 +1,3 @@
 export const config = {
-  SERVER_URL: import.meta.env.REACT_APP_SERVER_URL || "http://localhost:5000",
+  SERVER_URL: "https://plant-iot-backend.herokuapp.com/",
 };
