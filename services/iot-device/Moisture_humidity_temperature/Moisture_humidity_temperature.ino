@@ -60,15 +60,13 @@ void loop() {
   delay(2000);
   float h = dht.readHumidity();
   float t = dht.readTemperature();
+  int current_time = WiFi.getTime();
 
   // Check if any reads failed and exit early (to try again).
   if (isnan(h) || isnan(t)) {
     Serial.println(F("Failed to read from DHT sensor!"));
     return;
   }
-
-  // Compute heat index in Celsius (isFahreheit = false)
-  float hic = dht.computeHeatIndex(t, h, false);
 
   // Compute soil moisture percentage from analog input
   moisture_sensorvalue = analogRead(MOISTURE_SENSOR_IN);
@@ -80,10 +78,10 @@ void loop() {
   Serial.print(F("%  Temperature: "));
   Serial.print(t);
   Serial.print(F("°C "));
-  Serial.print(F("Heat index: "));
-  Serial.print(hic);
-  Serial.print(F("°C Soil moisture percentage: "));
+  Serial.print(F("Soil moisture percentage: "));
   Serial.print(soil_moisture_percentage);
-  Serial.println("%");
+  Serial.print("% Time: ");
+  Serial.println(current_time);
+  
   
 }
