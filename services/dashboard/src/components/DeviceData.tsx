@@ -13,8 +13,10 @@ import {
 export const DeviceData = (props: { data: Measurement[] }) => {
   const { data } = props;
   return (
-    <div className=" p-3 m-3 bg-white drop-shadow-md rounded-m justify-self-center">
-      <h2 className="text-2xl text-bold text-gray-700">{data[0]?.deviceId}</h2>
+    <div className="p-3 m-3 bg-white drop-shadow-md rounded-m justify-self-center">
+      <h2 className="text-2xl text-bold text-gray-700 p-3">
+        {data[0]?.deviceId}
+      </h2>
       <div className="flex justify-around">
         <KPI
           title={"Humidity"}
