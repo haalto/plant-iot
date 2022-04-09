@@ -18,7 +18,7 @@ export const app = (opts?: FastifyServerOptions) => {
   server.register(fastifySocketIO, {
     cors: {
       origin: "*",
-      methods: ["GET", "POST", "DELETE", "OPTIONS"],
+      methods: ["GET", "POST", "OPTIONS"],
       allowedHeaders: "*",
     },
   });
