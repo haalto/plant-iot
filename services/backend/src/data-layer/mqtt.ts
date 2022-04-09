@@ -1,6 +1,6 @@
 import { MqttClient } from "mqtt";
 import { createMeasurement } from "../services/measurementServices";
-import { NewMeasurement } from "../types";
+import { NewMeasurement, RawMeasurement } from "../types";
 import { Server } from "socket.io";
 
 export const mqttHandler =
@@ -18,9 +18,15 @@ export const mqttHandler =
       const logMessage = { msg: message.toString(), topic };
       console.log(JSON.stringify(logMessage));
       socket.emit("measurement", JSON.parse(message.toString()));
-      const measurement: NewMeasurement = await JSON.parse(message.toString());
+      const measurement: RawMeasurement = await JSON.parse(message.toString());
+      const newMeasurement = {
+        ...measurement,
+        measurementTime: new Date(
+          measurement.measurementTime * 1000
+        ).toLocaleDateString(),
+      };
       try {
-        await createMeasurement(measurement);
+        await createMeasurement(newMeasurement);
       } catch (e) {
         console.error(e);
       }

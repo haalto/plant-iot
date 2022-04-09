@@ -3,4 +3,9 @@ import { Static } from "@sinclair/typebox";
 
 export type Measurement = Static<typeof MeasurementSchema>;
 
-export type NewMeasurement = Omit<Measurement, "id">;
+export interface NewMeasurement extends Omit<Measurement, "id"> {}
+
+export interface RawMeasurement
+  extends Omit<Measurement, "id" | "measurementTime"> {
+  measurementTime: number;
+}

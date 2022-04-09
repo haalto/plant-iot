@@ -29,7 +29,7 @@ const mqttClient = connect(mqttUrl, {
       soilMoisture: Math.random() * 100,
       temperature: Math.random() * 100,
       humidity: Math.random() * 100,
-      measurementTime: new Date().toISOString(),
+      measurementTime: new Date().getTime() / 1000,
     };
 
     mqttClient.publish(topic, JSON.stringify(message), {
