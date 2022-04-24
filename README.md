@@ -40,6 +40,9 @@
 - Socket.io
 - Netlify
 
-### MQTT-broker
+### Infrastructure
 
+- Heroku
+- Netlify
 - CloudMQTT
+- GitHub actions
